@@ -14,10 +14,11 @@
   fi
 } &!
 
+eval "$(rbenv init -)"
+
 # Print a random, hopefully interesting, adage.
-if (( $+commands[fortune] )); then
-  if [[ -t 0 || -t 1 ]]; then
-    fortune -s
-    print
-  fi
-fi
+cows=($(find /usr/local/Cellar/cowsay -type d -name cows)/*)
+cow=$(basename "${cows[RANDOM % ${#cows[@]}]}" .cow)
+fortune | cowsay -f $cow
+echo ${cow}
+

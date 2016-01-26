@@ -5,9 +5,52 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+if [[ -s "${ZDOTDIR:-$HOME}/.zsh-git-prompt/zshrc.sh" ]]; then
+  GIT_PROMPT_EXECUTABLE="haskell"
+  ZSH_THEME_GIT_PROMPT_CACHE=""
+  source "${ZDOTDIR:-$HOME}/.zsh-git-prompt/zshrc.sh"
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
+
+stealthwatch=/Users/tgagnier/lancope/projects/stealthwatch
+
+function path() {
+  echo $PATH | sed 's/:/\'$'\n/g'
+}
+
+function set_terminal_title() {
+  printf "\e]1;$1\a"
+}
+
+function rfc() {
+  command=$(echo pwd \&\& "$@")
+  repo forall -c $command
+}
+
+function dsi {
+  eval "$(boot2docker shellinit)"
+}
+
+PATH=$HOME/Public/scripts:$PATH
+PATH=$HOME/bin:$PATH
+export PATH
+export DOCKER_HOST=tcp://172.17.8.101:2375
+
+eval "$(rbenv init -)"
+
+alias ack='ack --ignore-file=ext:iml --ignore-dir .git --ignore-dir target --ignore-dir .repo --ignore-dir .idea --pager="less -r"'
+alias less='less --RAW-CONTROL-CHARS'
+alias dm=docker-machine
+alias ping='ping -c 4'
+alias idea='open -a /Applications/IntelliJ\ IDEA\ 15.app'
+alias chrome='open -a /Applications/Google\ Chrome.app'
+alias firefox='open -a /Applications/Firefox.app'
+alias safari='open -a /Applications/Safari.app'
+
+source /Users/tgagnier/dev/projects/local-docker-stack/shell/docker.sh

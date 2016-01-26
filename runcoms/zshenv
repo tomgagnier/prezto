@@ -9,3 +9,25 @@
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# favorite directories
+stealthwatch=/Users/tgagnier/lancope/projects/stealthwatch
+
+function path() {
+  echo $PATH | sed 's/:/\'$'\n/g'
+}
+
+function set_terminal_title() {
+  printf "\e]1;$1\a"
+}
+
+function rfc() {
+  command=$(echo pwd \&\& "$@")
+  repo forall -c $command
+}
+
+export JAVA16_HOME=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home
+export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256m"
+
+
